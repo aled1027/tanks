@@ -6,3 +6,6 @@ void Bullet::setDamage(int d) {
 int Bullet::getDamage() {
     return damage;
 }
+void Bullet::move() {
+    Entity::move();
+}

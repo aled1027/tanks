@@ -14,7 +14,7 @@ Entity::Entity() {
     box.w = 20;
     box.h = 20;
 
-    dot = load_image("dot.bmp");
+    dot = load_image("images/dot.bmp");
     width = 10;
     height = 10;
 }
@@ -32,6 +32,7 @@ Entity::Entity (Point _position, Vector _velocity, Vector _acceleration, float _
     box.w = 20;
     box.h = 20;
 
+    dot = load_image("images/dot.bmp");
     width = 10;
     height = 10;
 }
@@ -58,6 +59,9 @@ float Entity::getMaxHealth() const {
     return maxHealth;
 }
 
+void Entity::setPosition(Point p) {
+    position = p;
+}
 void Entity::setVelocity(Vector v) {
     velocity = v;
 }
@@ -65,6 +69,11 @@ void Entity::setVelocity(Vector v) {
 void Entity::printPosition() {
     std::cout << "entity position: ";
     position.print();
+    std::cout << std::endl;
+}
+void Entity::printVelocity() {
+    std::cout << "entity velocity: ";
+    velocity.print();
     std::cout << std::endl;
 }
 
@@ -77,6 +86,7 @@ void Entity::moveBy(Vector v) {
 }
 
 void Entity::move() {
+
     position = position + velocity;
     checkAndFixXPosition();
     checkAndFixYPosition();
@@ -128,47 +138,3 @@ void Entity::showDot() {
 }
 
 
-void Entity::handle_input() {
-    if (event.type== SDL_KEYDOWN ) {
-        switch( event.key.keysym.sym ) {
-            case SDLK_UP: setVelocity(Vector(0.0,0.0,0.0,-1.0)); break;
-            case SDLK_DOWN: setVelocity(Vector(0.0,0.0,0.0,1.0)); break;
-            case SDLK_LEFT: setVelocity(Vector(0.0,0.0,-1.0,0.0)); break;
-            case SDLK_RIGHT: setVelocity(Vector(0.0,0.0,1.0,0.0)); break;
-            default: break;
-        }
-    } else if( event.type == SDL_KEYUP ) {
-         //Adjust the velocity
-        switch( event.key.keysym.sym ) {
-            case SDLK_UP: setVelocity(Vector(0.0,0.0,0.0,-1.0)); break;
-            case SDLK_DOWN: setVelocity(Vector(0.0,0.0,0.0,1.0)); break;
-            case SDLK_LEFT: setVelocity(Vector(0.0,0.0,-1.0,0.0)); break;
-            case SDLK_RIGHT: setVelocity(Vector(0.0,0.0,1.0,0.0)); break;
-            default: break;
-        }
-    }
-    // scale it
-    velocity.scale(7);
-}
-/*
-void Entity::handle_input() {
-    if (event.type== SDL_KEYDOWN ) {
-        switch( event.key.keysym.sym ) {
-            case SDLK_UP: moveBy(Vector(0.0,0.0,0.0,-1.0)); break;
-            case SDLK_DOWN: moveBy(Vector(0.0,0.0,0.0,1.0)); break;
-            case SDLK_LEFT: moveBy(Vector(0.0,0.0,-1.0,0.0)); break;
-            case SDLK_RIGHT: moveBy(Vector(0.0,0.0,1.0,0.0)); break;
-            default: break;
-        }
-    } else if( event.type == SDL_KEYUP ) {
-         //Adjust the velocity
-        switch( event.key.keysym.sym ) {
-            case SDLK_UP: moveBy(Vector(0.0,0.0,0.0,-1.0)); break;
-            case SDLK_DOWN: moveBy(Vector(0.0,0.0,0.0,1.0)); break;
-            case SDLK_LEFT: moveBy(Vector(0.0,0.0,-1.0,0.0)); break;
-            case SDLK_RIGHT: moveBy(Vector(0.0,0.0,1.0,0.0)); break;
-            default: break;
-        }
-    }
-}
-*/

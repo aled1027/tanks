@@ -1,11 +1,11 @@
 CXXFLAGS =	-O2 -g -Wall -fmessage-length=0 -std=c++11
-OBJS =	sdl_utils.o Bullet.o Tank.o Entity.o utils/point_vector.o main.o
+OBJS =	Bullet.o Tank.o Entity.o utils/sdl_utils.o utils/point_vector.o main.o
 TARGET =		main
 LIBS = -lSDL -lSDL_image -lSDL_ttf 
 
 TEST_LIBS = -lboost_unit_test_framework
 TEST_TARGET = tests/test.cpp
-SOURCES = sdl_utils.cpp Bullet.cpp Tank.cpp Entity.cpp utils/point_vector.cpp
+SOURCES =  Bullet.cpp Tank.cpp Entity.cpp utils/point_vector.cpp utils/sdl_utils.cpp
 
 $(TARGET):	$(OBJS)
 			$(CXX) -o $(TARGET) $(OBJS) $(LIBS)

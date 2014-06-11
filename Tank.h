@@ -7,10 +7,15 @@
 
 class Tank : public Entity {
     public: 
+        Tank() : Entity() {}
         Tank(Point _p, Vector _v, Vector _a, float _d, float _h, float _m) : Entity(_p,_v,_a,_d,_h,_m) {}
-        Bullet fire();
+        virtual ~Tank();
+        void fire(Vector);
+        void handle_input();
+        virtual void showDot();
+        virtual void move();
     protected:
         float fireRate;
-        std::vector<Bullet> outstandingBullets;
+        std::vector<Bullet*> outstandingBullets;
 };
 

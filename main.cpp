@@ -10,7 +10,7 @@
 #include "SDL/SDL_image.h" //if using this must add -lSDL_image to command prompt compilation line 
 #include "SDL/SDL_ttf.h" //if using this must add -lSDL_ttf to command prompt compilation line 
 
-#include "sdl_utils.h"
+#include "utils/sdl_utils.h"
 
 const int SCREEN_BPP = 32; //bits per pixel
 const int FRAMES_PER_SECOND = 50;
@@ -32,29 +32,27 @@ int main() {
 		std::cout << "\nError with init\n";
 		return 1;
 	}
-	//---------------load images--------------
-    Entity ent;
-
     //---------------fps management-----------
-    //int frame = 0;
-    //bool cap = true;
     Timer fps;
+    
+	//---------------initialize and declare --------------
+    Tank tank;
     
     //---------------main loop---------------
 	while (quit == false) {
         fps.start();
+        //------------handle input-----------------
 		while (SDL_PollEvent(&event)) {
-            ent.handle_input();
-			if (event.type == SDL_QUIT) {
-				quit = true;
-			}
+            tank.handle_input();
+			if (event.type == SDL_QUIT) { quit = true; }
 		}
-        ent.move();
-        ent.printPosition();
+
+        tank.move();
+
         //----------------print things to screen------------------------
         // make background white
         SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) ); 
-        ent.showDot();
+        tank.showDot();
 	    //Update the screen
 	    if( SDL_Flip( screen ) == -1 ) { return 1; }
 

@@ -3,11 +3,10 @@
 #include <iostream>
 #include <utility> // pair
 #include "utils/point_vector.h"
+#include "utils/sdl_utils.h"
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h" //if using this must add -lSDL_image to command prompt compilation line 
-
-#include "sdl_utils.h"
 
 class Tank;
 class Bullet;
@@ -16,7 +15,7 @@ class Entity {
     public:
         Entity ();
         Entity(Point, Vector, Vector, float, float, float);
-        ~Entity();
+        virtual ~Entity();
 
         Point getPosition() const;
         Vector getVelocity() const;
@@ -24,21 +23,22 @@ class Entity {
         float getDirection() const;
         float getHealth() const;
         float getMaxHealth() const;
+        void setPosition(Point);
         void setVelocity(Vector);
         void printPosition();
+        void printVelocity();
         
         //behavior
         void moveTo(Point);
         void moveBy(Vector);
-        void move(); // moves by its velocity
+        virtual void move(); // moves by its velocity
         // if the position is off the screen, moves the position to edge of screen and sets velocity to 0
         void checkAndFixXPosition();
         void checkAndFixYPosition();
 
         //SDL
         void show();
-        void showDot();
-        void handle_input();
+        virtual void showDot();
 
 
     protected: 
