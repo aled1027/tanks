@@ -14,7 +14,7 @@ Entity::Entity() {
     box.w = 20;
     box.h = 20;
 
-    dot = load_image("images/dot.bmp");
+    img = load_image("images/dot.bmp");
     width = 10;
     height = 10;
 }
@@ -32,12 +32,12 @@ Entity::Entity (Point _position, Vector _velocity, Vector _acceleration, float _
     box.w = 20;
     box.h = 20;
 
-    dot = load_image("images/dot.bmp");
+    img = load_image("images/dot.bmp");
     width = 10;
     height = 10;
 }
 Entity::~Entity() {
-    SDL_FreeSurface(dot);
+    SDL_FreeSurface(img);
 }
 Point Entity::getPosition() const {
     return position;
@@ -86,7 +86,6 @@ void Entity::moveBy(Vector v) {
 }
 
 void Entity::move() {
-
     position = position + velocity;
     checkAndFixXPosition();
     checkAndFixYPosition();
@@ -130,11 +129,17 @@ void Entity::die() {
 void Entity::show() {
     SDL_FillRect(screen, &box, SDL_MapRGB( screen->format, 0x77, 0x77, 0x77 ) );
 }
-void Entity::showDot() {
+void Entity::showImage() {
     auto pair = position.getPair();
     float x = pair.first;
     float y = pair.second;
-    apply_surface(x, y, dot, screen, NULL);
+    apply_surface(x, y, img, screen, NULL);
 }
 
 
+int Entity::getWidth() const {
+    return width;
+}
+int Entity::getHeight() const {
+    return height;
+}

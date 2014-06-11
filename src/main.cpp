@@ -1,16 +1,17 @@
-#include "utils/point_vector.h"
-#include "Entity.h"
-#include "Tank.h"
 
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h" //if using this must add -lSDL_image to command prompt compilation line 
 #include "SDL/SDL_ttf.h" //if using this must add -lSDL_ttf to command prompt compilation line 
 
-#include "utils/sdl_utils.h"
+#include "Entity.h"
+#include "Tank.h"
+#include "../utils/sdl_utils.h"
+#include "../utils/point_vector.h"
 
 const int SCREEN_BPP = 32; //bits per pixel
 const int FRAMES_PER_SECOND = 50;
@@ -47,12 +48,23 @@ int main() {
 			if (event.type == SDL_QUIT) { quit = true; }
 		}
 
-        tank.move();
+        // move things
+        tank.move(); // all of tanks bullets move with tank's move method
+        // check for collisions:
+        std::vector<Entity*> ents;
+        ents.push_back(&tank);
+        if (check_for_all_collisions(ents)) {
+            // checks for collisions
+            // the function check_for_all_collisions is not yet finished being written
+            // I would write it first as brute force and then if needed optimize it with
+            // a quad tree -- or some other kind of tree or heuristic
+        }
+
 
         //----------------print things to screen------------------------
         // make background white
         SDL_FillRect( screen, &screen->clip_rect, SDL_MapRGB( screen->format, 0xFF, 0xFF, 0xFF ) ); 
-        tank.showDot();
+        tank.showImage();
 	    //Update the screen
 	    if( SDL_Flip( screen ) == -1 ) { return 1; }
 

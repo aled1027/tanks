@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <utility> // pair
-#include "utils/point_vector.h"
-#include "utils/sdl_utils.h"
+#include "../utils/point_vector.h"
+#include "../utils/sdl_utils.h"
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h" //if using this must add -lSDL_image to command prompt compilation line 
@@ -25,6 +25,8 @@ class Entity {
         float getMaxHealth() const;
         void setPosition(Point);
         void setVelocity(Vector);
+        int getWidth() const;
+        int getHeight() const;
         void printPosition();
         void printVelocity();
         
@@ -38,7 +40,7 @@ class Entity {
 
         //SDL
         void show();
-        virtual void showDot();
+        virtual void showImage();
 
 
     protected: 
@@ -52,7 +54,7 @@ class Entity {
         virtual void die();
         //SDL
         SDL_Rect box;
-        SDL_Surface *dot;
+        SDL_Surface *img;
         int width; // width and height of image
         int height;
         
